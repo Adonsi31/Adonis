@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXPLORE GHANA | Trip Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">EXPLORE<span>GHANA</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">HOME</a></li>
+                <li><a href="destinations.html" class="nav-link">DESTINATIONS</a></li>
+                <li><a href="planner.html" class="nav-link">PLAN TRIP</a></li>
+                <li><a href="gallery.html" class="nav-link">GALLERY</a></li>
+                <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+            </ul>
+            <div style="display:flex; gap:15px; align-items:center;">
+                <button class="theme-switch" onclick="toggleTheme()" title="Toggle Theme">☀</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container section-padding fade-in">
+        <h2>Plan Your Journey</h2>
+        <p>Customize your itinerary and download your roadmap.</p>
+
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 30px;">
+            <div style="background: var(--surface-color); padding: 40px; border: 1px solid var(--border-color);">
+                <div style="margin-bottom: 20px;">
+                    <label style="display:block; margin-bottom:10px;">Traveler Name</label>
+                    <input type="text" id="planner-name"
+                        style="width:100%; padding:15px; background:transparent; border:1px solid var(--border-color); color:var(--text-primary);">
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display:block; margin-bottom:10px;">Select Destinations</label>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
+                        <label><input type="checkbox" value="Cape Coast Castle" onchange="updateSummary()"> Cape Coast
+                            Castle</label>
+                        <label><input type="checkbox" value="Kakum National Park" onchange="updateSummary()"> Kakum
+                            National Park</label>
+                        <label><input type="checkbox" value="Accra City Tour" onchange="updateSummary()"> Accra City
+                            Tour</label>
+                        <label><input type="checkbox" value="Mole National Park" onchange="updateSummary()"> Mole
+                            National Park</label>
+                        <label><input type="checkbox" value="Wli Waterfalls" onchange="updateSummary()"> Wli
+                            Waterfalls</label>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display:block; margin-bottom:10px;">Duration</label>
+                    <select id="planner-days"
+                        style="width:100%; padding:15px; background:var(--bg-color); border:1px solid var(--border-color); color:var(--text-primary);"
+                        onchange="updateSummary()">
+                        <option>3 Days</option>
+                        <option>5 Days</option>
+                        <option>7 Days</option>
+                        <option>10+ Days</option>
+                    </select>
+                </div>
+
+                <button class="btn-main" onclick="downloadItinerary()">DOWNLOAD ROADMAP</button>
+            </div>
+
+            <div
+                style="background: var(--surface-color); padding: 30px; border: 1px solid var(--border-color); height: fit-content;">
+                <h3 style="color: var(--accent-secondary); margin-bottom: 20px;">Summary</h3>
+                <ul id="summary-list" style="margin-bottom: 20px; color: var(--text-secondary);">
+                    <li>No destinations selected...</li>
+                </ul>
+                <div id="summary-total" style="font-weight: bold; color: var(--accent-primary);"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <a href="index.html" class="logo">EXPLORE<span>GHANA</span></a>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="planner.html">Trip Planner</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <ul class="footer-links">
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 Explore Ghana Architecture.</div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        function updateSummary() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            const list = document.getElementById('summary-list');
+            const total = document.getElementById('summary-total');
+            const duration = document.getElementById('planner-days').value;
+
+            list.innerHTML = '';
+            if (checkboxes.length === 0) {
+                list.innerHTML = '<li>No destinations selected...</li>';
+                total.innerText = '';
+                return;
+            }
+            checkboxes.forEach(chk => list.innerHTML += `<li>✓ ${chk.value}</li>`);
+            total.innerText = `Duration: ${duration}`;
+        }
+
+        function downloadItinerary() {
+            const name = document.getElementById('planner-name').value || 'Traveler';
+            const duration = document.getElementById('planner-days').value;
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+
+            if (checkboxes.length === 0) { alert('Please select at least one destination.'); return; }
+
+            const places = Array.from(checkboxes).map(c => c.value);
+            const content = `EXPLORE GHANA ROADMAP\nTraveler: ${name}\nDuration: ${duration}\n\nSTOPS:\n${places.map(p => '- ' + p).join('\n')}\n\nGenerated via ExploreGhana web.`;
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Ghana_Plan.txt';
+            a.click();
+        }
+    </script>
+</body>
+
+</html>

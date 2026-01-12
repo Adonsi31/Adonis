@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXPLORE GHANA | Contact</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">EXPLORE<span>GHANA</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">HOME</a></li>
+                <li><a href="destinations.html" class="nav-link">DESTINATIONS</a></li>
+                <li><a href="planner.html" class="nav-link">PLAN TRIP</a></li>
+                <li><a href="gallery.html" class="nav-link">GALLERY</a></li>
+                <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+            </ul>
+            <div style="display:flex; gap:15px; align-items:center;">
+                <button class="theme-switch" onclick="toggleTheme()" title="Toggle Theme">☀</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container section-padding fade-in">
+        <h2>Start The Conversation</h2>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <p>Ready to book or have questions? Our specialists are standing by.</p>
+            <form onsubmit="event.preventDefault(); alert('Message Sent!');" style="margin-top: 30px;">
+                <div style="margin-bottom: 20px;">
+                    <input type="text" placeholder="Name" required
+                        style="width:100%; padding:15px; background:transparent; border:1px solid var(--border-color); color:var(--text-primary);">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <input type="email" placeholder="Email" required
+                        style="width:100%; padding:15px; background:transparent; border:1px solid var(--border-color); color:var(--text-primary);">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <textarea placeholder="Message..."
+                        style="width:100%; min-height:150px; padding:15px; background:transparent; border:1px solid var(--border-color); color:var(--text-primary);"></textarea>
+                </div>
+                <button type="submit" class="btn-main" style="width: 100%;">SEND INQUIRY</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <a href="index.html" class="logo">EXPLORE<span>GHANA</span></a>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="gallery.html">Visual Archive</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <ul class="footer-links">
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 Explore Ghana Architecture.</div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

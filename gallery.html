@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXPLORE GHANA | Gallery & History</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">EXPLORE<span>GHANA</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">HOME</a></li>
+                <li><a href="destinations.html" class="nav-link">DESTINATIONS</a></li>
+                <li><a href="planner.html" class="nav-link">PLAN TRIP</a></li>
+                <li><a href="gallery.html" class="nav-link">GALLERY</a></li>
+                <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+            </ul>
+            <div style="display:flex; gap:15px; align-items:center;">
+                <button class="theme-switch" onclick="toggleTheme()" title="Toggle Theme">☀</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container section-padding fade-in">
+        <h2>Visual Archive & History</h2>
+        <p>Explore the diverse characteristics and historical significance of Ghana's regions.</p>
+
+        <div class="card-grid" id="history-grid">
+            <!-- Populated by JS -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <a href="index.html" class="logo">EXPLORE<span>GHANA</span></a>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="planner.html">Trip Planner</a></li>
+                    <li><a href="gallery.html">Visual Archive</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <ul class="footer-links">
+                    <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 Explore Ghana Architecture.</div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        const historyItems = [
+            {
+                img: './images/cape-coast.jpg',
+                title: 'The Gold Coast Era',
+                text: 'Before gaining independence in 1957, Ghana was known as the Gold Coast. The forts and castles lining the coast, including Cape Coast Castle (1653), served as trade posts for gold and unfortunately, enslaved people. These structures are characterized by their white-washed limestone walls and damp dungeons, offering a stark reminder of the colonial era.'
+            },
+            {
+                img: './images/accra.jpg',
+                title: 'Independence & Black Star',
+                text: 'Ghana was the first sub-Saharan African nation to gain independence from colonial rule. The Black Star Square in Accra commemorates this historic event led by Kwame Nkrumah. The architecture here mimics Soviet-style openness, designed for massive gatherings and national pride.'
+            },
+            {
+                img: './images/kakum.jpg',
+                title: 'Biodiversity of the Rainforest',
+                text: 'The Ghanaian tropical rainforests are hot and humid, characterized by towering ebony and mahogany trees. Kakum National Park represents the preservation of this ecosystem, home to endangered species like the Diana monkey and bongo antelope.'
+            },
+            {
+                img: './images/mole.jpg',
+                title: 'The Northern Savannah',
+                text: 'Contrasting the southern forests, the Northern region features vast savannah grasslands. This ecosystem supports large mammals like elephants and baboons. The culture here is distinct, with unique smock-weaving traditions and earth-brick architecture.'
+            },
+            {
+                img: './images/gallery3.jpg',
+                title: 'Traditional Kente Weaving',
+                text: 'Originating from the Ashanti Kingdom, Kente cloth is a royal and sacred cloth worn only in times of extreme importance. It is the cloth of kings. Over time, the use of Kente has become more widespread, characterized by its dazzling, multicolored patterns of bright geometric shapes.'
+            },
+            {
+                img: './images/wli.jpg',
+                title: 'Volta Region Topography',
+                text: 'The Volta Region is characterized by its dramatic landscape of hills and waterfalls, marking the border with Togo. Wli Waterfalls represents the serene, spiritual connection locals have with the land, believing the waters carry healing properties.'
+            }
+        ];
+
+        const grid = document.getElementById('history-grid');
+        grid.innerHTML = historyItems.map(item => `
+            <div class="card">
+                <div class="card-img-wrap"><img src="${item.img}" onerror="this.src='./images/hero.jpg'"></div>
+                <div class="card-content">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 15px; color: var(--accent-secondary);">${item.title}</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-primary);">${item.text}</p>
+                </div>
+            </div>
+        `).join('');
+    </script>
+</body>
+
+</html>

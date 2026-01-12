@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXPLORE GHANA | Destinations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">EXPLORE<span>GHANA</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">HOME</a></li>
+                <li><a href="destinations.html" class="nav-link">DESTINATIONS</a></li>
+                <li><a href="planner.html" class="nav-link">PLAN TRIP</a></li>
+                <li><a href="gallery.html" class="nav-link">GALLERY</a></li>
+                <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+            </ul>
+            <div style="display:flex; gap:15px; align-items:center;">
+                <button class="theme-switch" onclick="toggleTheme()" title="Toggle Theme">☀</button>
+                <a href="planner.html" class="btn-main">BOOK NOW</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container section-padding fade-in">
+        <h2>Curated Destinations</h2>
+        <p style="margin-bottom: 40px;">Select a destination to reveal its secrets.</p>
+
+        <div class="card-grid" id="dest-grid">
+            <!-- JS Injection -->
+        </div>
+    </main>
+
+    <!-- MODAL -->
+    <div id="detail-modal"
+        style="position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center;">
+        <div
+            style="width: 90%; max-width: 1000px; height: 80vh; background: var(--modal-bg); display: grid; grid-template-columns: 1.2fr 1fr; border: 1px solid var(--border-color); position: relative;">
+            <div onclick="document.getElementById('detail-modal').style.display='none'"
+                style="position: absolute; top: 20px; right: 20px; font-size: 2rem; color: var(--text-primary); cursor: pointer; z-index: 10;">
+                &times;</div>
+            <div id="modal-img" style="background-size: cover; background-position: center; height: 100%;"></div>
+            <div style="padding: 50px; overflow-y: auto; color: var(--text-primary);">
+                <h4 id="modal-loc" style="color: var(--accent-primary); margin-bottom: 10px;">Subtitle</h4>
+                <h2 id="modal-title" style="border:none; padding:0; font-size: 2.5rem; margin-bottom: 20px;">Title</h2>
+                <p id="modal-desc" style="color: var(--text-primary); line-height: 1.8;">Description...</p>
+                <div style="margin-top: 30px;">
+                    <a href="planner.html" class="btn-main">ADD TO PLAN</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <a href="index.html" class="logo" style="font-size: 1.5rem;">EXPLORE<span>GHANA</span></a>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="planner.html">Trip Planner</a></li>
+                    <li><a href="gallery.html">Visual Archive</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <ul class="footer-links">
+                    <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 Explore Ghana Architecture.</div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        const destinations = [
+            {
+                id: 'cape-coast',
+                title: 'Cape Coast Castle',
+                location: 'Central Region',
+                img: './images/cape-coast.jpg',
+                desc: 'Cape Coast Castle is a UNESCO World Heritage Site and a poignant symbol of the transatlantic slave trade. Originally built by European powers for trade in timber and gold, it later became a holding fort for enslaved Africans. Visitors can walk through the "Door of No Return" and explore the dungeons, offering a powerful educational experience.'
+            },
+            {
+                id: 'kakum',
+                title: 'Kakum National Park',
+                location: 'Central Region',
+                img: './images/kakum.jpg',
+                desc: 'Kakum National Park offers a unique perspective of the tropical rainforest via its famous Canopy Walkway. Suspended 30 meters above the forest floor, the 350-meter long bridge system connects seven giant trees. It offers breathtaking views of the flora and fauna.'
+            },
+            {
+                id: 'accra',
+                title: 'Accra City Life',
+                location: 'Greater Accra',
+                img: './images/accra.jpg',
+                desc: 'Accra is a bustling metropolis where history meets modernity. Key highlights include the Black Star Square, commissioned by Kwame Nkrumah to celebrate independence, and the lively Osu district known for its nightlife and Afrobeats music.'
+            },
+            {
+                id: 'mole',
+                title: 'Mole National Park',
+                location: 'Savannah Region',
+                img: './images/mole.jpg',
+                desc: 'Mole National Park is Ghana\'s premier safari destination. It is home to a thriving population of African elephants which are often seen bathing in the waterholes near the motel.'
+            },
+            {
+                id: 'wli',
+                title: 'Wli Waterfalls',
+                location: 'Volta Region',
+                img: './images/wli.jpg',
+                desc: 'Wli Waterfalls, or Agumatsa Falls, is a breathtaking natural wonder cascading from a height of 80 meters. The hike to the lower falls is a scenic walk through a forest filled with fruit bats.'
+            }
+        ];
+
+        const grid = document.getElementById('dest-grid');
+        grid.innerHTML = destinations.map(d => `
+            <div class="card" onclick="openModal('${d.id}')" style="cursor: pointer;">
+                <div class="card-img-wrap"><img src="${d.img}" onerror="this.src='./images/hero.jpg'"></div>
+                <div class="card-content">
+                    <div style="color: var(--accent-primary); font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase;">${d.location}</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 10px;">${d.title}</h3>
+                </div>
+            </div>
+        `).join('');
+
+        function openModal(id) {
+            const data = destinations.find(d => d.id === id);
+            document.getElementById('modal-img').style.backgroundImage = `url('${data.img}')`;
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-loc').innerText = data.location;
+            document.getElementById('modal-desc').innerText = data.desc;
+            document.getElementById('detail-modal').style.display = 'flex';
+        }
+    </script>
+</body>
+
+</html>

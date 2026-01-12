@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXPLORE GHANA | The Golden Experience</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* DEFAULTS (Dark/Sunset) */
+            --bg-color: #0b0b0b;
+            --surface-color: #161616;
+            --text-primary: #ffffff;
+            --text-secondary: #aaa;
+            --accent-primary: #E65100;
+            /* Deep Sunset Orange */
+            --accent-secondary: #FFD54F;
+            /* Soft Gold */
+            --border-color: #333;
+            --overlay-color: rgba(0, 0, 0, 0.85);
+            --modal-bg: #111;
+
+            --font-main: 'Roboto', sans-serif;
+            --font-display: 'Rajdhani', sans-serif;
+
+            --nav-height: 80px;
+            --transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f4f4f4;
+            --surface-color: #ffffff;
+            --text-primary: #111111;
+            --text-secondary: #555555;
+            --accent-primary: #D84315;
+            /* Darker Orange for contrast */
+            --accent-secondary: #F9A825;
+            /* Darker Yellow */
+            --border-color: #ddd;
+            --overlay-color: rgba(255, 255, 255, 0.9);
+            --modal-bg: #fff;
+        }
+
+        /* RESET & BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color var(--transition), color var(--transition);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            font-family: var(--font-display);
+        }
+
+        /* TYPOGRAPHY */
+        h1,
+        h2,
+        h3,
+        h4,
+        .nav-link,
+        .btn {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 700;
+            line-height: 0.95;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent-primary);
+            padding-left: 20px;
+            color: var(--text-primary);
+        }
+
+        p {
+            font-weight: 300;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            max-width: 65ch;
+            font-size: 1.05rem;
+        }
+
+        /* LAYOUT UTILS */
+        .page-container {
+            display: none;
+            padding-top: var(--nav-height);
+            min-height: 100vh;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .page-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        /* NAVIGATION - GLOBAL VISIBILITY */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        [data-theme="light"] header {
+            background: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--text-primary);
+        }
+
+        .logo span {
+            color: var(--accent-primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            /* Ensured visibility */
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            opacity: 0.7;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .nav-link.active,
+        .nav-link:hover {
+            opacity: 1;
+            color: var(--accent-primary);
+        }
+
+        /* THEME TOGGLE */
+        .theme-switch {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .theme-switch:hover {
+            background: var(--surface-color);
+            color: var(--accent-secondary);
+        }
+
+        /* BUTTONS */
+        .btn-main {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 35px;
+            border: 1px solid var(--accent-primary);
+            background: transparent;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .btn-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--accent-primary);
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn-main:hover {
+            color: white;
+            border-color: var(--accent-primary);
+        }
+
+        .btn-main:hover::before {
+            width: 100%;
+        }
+
+        /* HERO PAGE (HOME) */
+        #home {
+            padding-top: 0;
+            /* Full screen */
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: url('./images/hero.jpg') no-repeat center center/cover;
+            position: relative;
+        }
+
+        #home::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding-left: 5%;
+            max-width: 800px;
+        }
+
+        .hero-subtitle {
+            color: var(--accent-secondary);
+            font-family: var(--font-display);
+            letter-spacing: 4px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* DESTINATIONS PAGE */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            padding-bottom: 50px;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            height: 450px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-img {
+            height: 65%;
+            width: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.1);
+        }
+
+        .card-body {
+            padding: 25px;
+            position: relative;
+            z-index: 2;
+            background: var(--surface-color);
+            height: 35%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .card-loc {
+            color: var(--accent-primary);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .card-desc-short {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* PLANNER PAGE */
+        .planner-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .planner-form {
+            background: var(--surface-color);
+            padding: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .checkbox-item:hover {
+            border-color: var(--accent-primary);
+            background: rgba(230, 81, 0, 0.05);
+        }
+
+        .checkbox-item input {
+            margin-right: 10px;
+        }
+
+        .plan-summary {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            height: fit-content;
+        }
+
+        .summary-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        /* GALLERY PAGE */
+        .gallery-grid {
+            column-count: 3;
+            column-gap: 20px;
+        }
+
+        .gallery-item {
+            margin-bottom: 20px;
+            position: relative;
+            break-inside: avoid;
+            cursor: zoom-in;
+        }
+
+        .gallery-item img {
+            border-radius: 0;
+            opacity: 0.9;
+            transition: 0.3s;
+        }
+
+        .gallery-item:hover img {
+            opacity: 1;
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* CONTACT PAGE */
+        .contact-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            margin-bottom: 20px;
+        }
+
+        .input-field:focus {
+            border-color: var(--accent-primary);
+            outline: none;
+        }
+
+        textarea.input-field {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* MODAL */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 1000px;
+            height: 80vh;
+            background: var(--modal-bg);
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .modal-img-wrapper {
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .modal-details {
+            padding: 50px;
+            overflow-y: auto;
+            color: var(--text-primary);
+        }
+
+        /* COOKIE BANNER */
+        .cookie-banner {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            max-width: 400px;
+            background: var(--surface-color);
+            border: 1px solid var(--accent-primary);
+            padding: 25px;
+            z-index: 9999;
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+            display: none;
+            /* Controlled by JS */
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cookie-banner h4 {
+            margin-bottom: 10px;
+            color: var(--accent-primary);
+        }
+
+        .cookie-banner p {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .cookie-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            /* Mobile Menu would be added here in full app */
+            .gallery-grid {
+                column-count: 1;
+            }
+
+            .planner-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                grid-template-columns: 1fr;
+                height: 90vh;
+            }
+
+            .modal-img-wrapper {
+                height: 300px;
+            }
+
+            .cookie-banner {
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER / NAVIGATION -->
+    <header>
+        <nav>
+            <div class="logo">EXPLORE<span>GHANA</span></div>
+            <ul class="nav-menu">
+                <li class="nav-link active" onclick="switchPage('home')">HOME</li>
+                <li class="nav-link" onclick="switchPage('destinations')">DESTINATIONS</li>
+                <li class="nav-link" onclick="switchPage('planner')">PLAN TRIP</li>
+                <li class="nav-link" onclick="switchPage('gallery')">GALLERY</li>
+                <li class="nav-link" onclick="switchPage('contact')">CONTACT</li>
+            </ul>
+            <div style="display:flex; gap:15px; align-items:center;">
+                <button class="theme-switch" onclick="toggleTheme()" title="Toggle Theme">☀</button>
+                <button class="btn-main" onclick="switchPage('planner')">BOOK NOW</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- PAGE 1: HOME -->
+    <section id="home" class="page-container active">
+        <div class="hero-content">
+            <span class="hero-subtitle">THE GATEWAY TO AFRICA</span>
+            <h1>Discover<br>The Untold<br>Stories</h1>
+            <p>From the poignant history of Cape Coast to the vibrant pulse of Accra nights. Immerse yourself in a
+                journey of culture, nature, and golden sunsets.</p>
+            <div style="margin-top: 30px;">
+                <button class="btn-main" onclick="switchPage('destinations')">EXPLORE LOCATIONS</button>
+                <button class="btn-main" style="border-color: rgba(255,255,255,0.3); margin-left: 15px;"
+                    onclick="switchPage('gallery')">VIEW GALLERY</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 2: DESTINATIONS -->
+    <section id="destinations" class="page-container">
+        <div class="container section-padding">
+            <h2>Curated Destinations</h2>
+            <p style="margin-bottom: 40px;">Select a destination to reveal its secrets.</p>
+
+            <div class="grid-container" id="destinations-grid">
+                <!-- Generated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 3: TRIP PLANNER -->
+    <section id="planner" class="page-container">
+        <div class="container section-padding">
+            <h2>Plan Your Journey</h2>
+            <p style="margin-bottom: 40px;">Customize your itinerary and download your roadmap.</p>
+
+            <div class="planner-layout">
+                <div class="planner-form">
+                    <div class="form-group">
+                        <label class="form-label">Traveler Name</label>
+                        <input type="text" id="planner-name" class="input-field" placeholder="Enter full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Select Destinations</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item"><input type="checkbox" value="Cape Coast Castle"
+                                    onchange="updateSummary()"> Cape Coast Castle</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Kakum National Park"
+                                    onchange="updateSummary()"> Kakum National Park</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Accra City Tour"
+                                    onchange="updateSummary()"> Accra City Tour</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Mole National Park"
+                                    onchange="updateSummary()"> Mole National Park</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Wli Waterfalls"
+                                    onchange="updateSummary()"> Wli Waterfalls</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Labadi Beach"
+                                    onchange="updateSummary()"> Labadi Beach</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Trip Duration</label>
+                        <select id="planner-days" class="input-field" onchange="updateSummary()">
+                            <option value="3 Days">3 Days (Express)</option>
+                            <option value="5 Days">5 Days (Standard)</option>
+                            <option value="7 Days">7 Days (Full Experience)</option>
+                            <option value="10+ Days">10+ Days (Deep Dive)</option>
+                        </select>
+                    </div>
+
+                    <button class="btn-main" onclick="downloadItinerary()">DOWNLOAD ITINERARY FRAMEWORK</button>
+                </div>
+
+                <div class="plan-summary">
+                    <h3 style="color: var(--accent-secondary); margin-bottom: 20px;">Your Roadmap</h3>
+                    <p style="font-size:0.9rem;">Live preview of your selected experience.</p>
+                    <ul class="summary-list" id="summary-list">
+                        <li>No destinations selected yet...</li>
+                    </ul>
+                    <div style="margin-top: 20px; font-weight: bold; color: var(--accent-primary);" id="summary-total">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 4: GALLERY -->
+    <section id="gallery" class="page-container">
+        <div class="container section-padding">
+            <h2>Visual Archive</h2>
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE 5: CONTACT -->
+    <section id="contact" class="page-container">
+        <div class="container section-padding">
+            <h2>Start The Conversation</h2>
+            <div class="contact-wrapper">
+                <p>Ready to book or have questions? Our specialists are standing by.</p>
+                <form onsubmit="event.preventDefault(); alert('Message Sent! We will contact you shortly.');">
+                    <div class="form-group">
+                        <input type="text" class="input-field" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="input-field" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="input-field" placeholder="Subject">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="input-field" placeholder="Tell us about your dream trip..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-main" style="width: 100%;">SEND INQUIRY</button>
+                </form>
+
+                <div style="margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4 style="color: var(--accent-primary);">Headquarters</h4>
+                        <p style="margin-bottom: 5px; color: var(--text-primary);">1957 Independence Ave</p>
+                        <p style="margin-bottom: 5px; color: var(--text-primary);">Accra, Greater Accra</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--accent-primary);">Contact</h4>
+                        <p style="margin-bottom: 5px; color: var(--text-primary);">+233 50 000 0000</p>
+                        <p style="margin-bottom: 5px; color: var(--text-primary);"><a
+                                href="mailto:hello@exploreghana.com">hello@exploreghana.com</a></p>
+                        <div style="margin-top:15px; display:flex; gap:10px;">
+                            <a href="https://instagram.com" target="_blank"
+                                style="color:var(--accent-secondary)">INSTAGRAM</a> |
+                            <a href="https://twitter.com" target="_blank"
+                                style="color:var(--accent-secondary)">TWITTER</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DETAILED MODAL -->
+    <div id="detail-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeModal()">&times;</div>
+            <div class="modal-img-wrapper" id="modal-img"></div>
+            <div class="modal-details">
+                <h4 id="modal-subtitle" style="color: var(--accent-primary); margin-bottom: 10px;">Subtitle</h4>
+                <h2 id="modal-title" style="border:none; padding:0; font-size: 2.5rem; margin-bottom: 20px;">Title</h2>
+                <p id="modal-desc" style="color: var(--text-primary); line-height: 1.8;">Description...</p>
+                <div style="margin-top: 30px;">
+                    <button class="btn-main" onclick="closeModal(); switchPage('planner')">ADD TO PLAN</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner" class="cookie-banner">
+        <h4>User Experience Settings</h4>
+        <p>We use cookies to save your theme preferences and planner settings. By continuing to explore, you agree to
+            our digital travel terms.</p>
+        <div class="cookie-actions">
+            <button class="btn-main" style="padding: 8px 20px;" onclick="acceptCookies()">ACCEPT</button>
+            <button class="btn-main" style="border-color: #555; color: #777;" onclick="acceptCookies()">IGNORE</button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- DATA ---
+        const destinationsData = [
+            {
+                id: 'cape-coast',
+                title: 'Cape Coast Castle',
+                location: 'Central Region',
+                img: './images/cape-coast.jpg',
+                shortDesc: 'A solemn monument to history standing on the Atlantic coast.',
+                fullDesc: 'Cape Coast Castle is a UNESCO World Heritage Site and a poignant symbol of the transatlantic slave trade. Originally built by European powers for trade in timber and gold, it later became a holding fort for enslaved Africans. Visitors can walk through the "Door of No Return" and explore the dungeons, offering a powerful educational experience about resilience and history.'
+            },
+            {
+                id: 'kakum',
+                title: 'Kakum National Park',
+                location: 'Central Region',
+                img: './images/kakum.jpg',
+                shortDesc: 'Walk above the rainforest on one of Africa\'s only canopy walkways.',
+                fullDesc: 'Kakum National Park offers a unique perspective of the tropical rainforest via its famous Canopy Walkway. Suspended 30 meters above the forest floor, the 350-meter long bridge system connects seven giant trees. It offers breathtaking views of the flora and fauna, including birds, butterflies, and occasionally monkeys, making it a premier ecotourism destination.'
+            },
+            {
+                id: 'accra',
+                title: 'Accra City Life',
+                location: 'Greater Accra',
+                img: './images/accra.jpg',
+                shortDesc: 'The vibrant heartbeat of Ghana, featuring Black Star Square and Osu.',
+                fullDesc: 'Accra is a bustling metropolis where history meets modernity. Key highlights include the Black Star Square, commissioned by Kwame Nkrumah to celebrate independence, and the lively Osu district known for its nightlife and Afrobeats music. From the Makola Market to the beaches of Labadi, Accra offers a sensory explosion of culture, food, and energy.'
+            },
+            {
+                id: 'mole',
+                title: 'Mole National Park',
+                location: 'Savannah Region',
+                img: './images/mole.jpg',
+                shortDesc: 'Ghana\'s largest wildlife refuge, home to elephants and savannah safaris.',
+                fullDesc: 'Mole National Park is Ghana\'s premier safari destination. It is home to a thriving population of African elephants which are often seen bathing in the waterholes near the motel. The park covers over 4,500 sq km of savannah and offers walking safaris where visitors can get up close to elephants, baboons, warthogs, and various antelope species in their natural habitat.'
+            },
+            {
+                id: 'wli',
+                title: 'Wli Waterfalls',
+                location: 'Volta Region',
+                img: './images/wli.jpg',
+                shortDesc: 'The highest waterfall in West Africa, nestled in the Agumatsa Sanctuary.',
+                fullDesc: 'Wli Waterfalls, or Agumatsa Falls, is a breathtaking natural wonder cascading from a height of 80 meters. Located in the lush Agumatsa Wildlife Sanctuary, the hike to the lower falls is a scenic walk through a forest filled with fruit bats and butterflies. It is a spiritual and serene location perfect for nature lovers and adventurers.'
+            }
+        ];
+
+        const galleryImages = [
+            './images/gallery1.jpg',
+            './images/gallery2.jpg',
+            './images/gallery3.jpg',
+            './images/gallery4.jpg',
+            './images/gallery5.jpg',
+            './images/gallery2.jpg' // Reuse for aesthetic grid balance if needed
+        ];
+
+        // --- INIT ---
+        function init() {
+            renderDestinations();
+            renderGallery();
+            loadTheme();
+            checkCookies();
+        }
+
+        // --- RENDERERS ---
+        function renderDestinations() {
+            const grid = document.getElementById('destinations-grid');
+            grid.innerHTML = destinationsData.map(dest => `
+                <div class="card" onclick="openDestination('${dest.id}')">
+                    <img src="${dest.img}" class="card-img" alt="${dest.title}" onerror="this.src='https://via.placeholder.com/800x600?text=No+Image'">
+                    <div class="card-body">
+                        <div class="card-loc">${dest.location}</div>
+                        <h3 class="card-title">${dest.title}</h3>
+                        <p class="card-desc-short">${dest.shortDesc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            grid.innerHTML = galleryImages.map(url => `
+                <div class="gallery-item">
+                    <img src="${url}" alt="Ghana Gallery" onerror="this.src='https://via.placeholder.com/800x600?text=Gallery+Item'">
+                </div>
+            `).join('');
+        }
+
+        // --- NAVIGATION ---
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-container').forEach(el => el.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+
+            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+            const navLink = Array.from(document.querySelectorAll('.nav-link')).find(el => el.textContent.includes(pageId.toUpperCase()) || (pageId === 'home' && el.textContent === 'HOME'));
+            if (navLink) navLink.classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        // --- MODAL ---
+        function openDestination(id) {
+            const data = destinationsData.find(d => d.id === id);
+            if (!data) return;
+
+            document.getElementById('modal-img').style.backgroundImage = `url('${data.img}')`;
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-subtitle').innerText = data.location;
+            document.getElementById('modal-desc').innerText = data.fullDesc;
+
+            document.getElementById('detail-modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('detail-modal').classList.remove('active');
+        }
+
+        // --- PLANNER LOGIC ---
+        function updateSummary() {
+            const checkboxes = document.querySelectorAll('.checkbox-group input:checked');
+            const list = document.getElementById('summary-list');
+            const total = document.getElementById('summary-total');
+            const duration = document.getElementById('planner-days').value;
+
+            list.innerHTML = '';
+
+            if (checkboxes.length === 0) {
+                list.innerHTML = '<li>No destinations selected yet...</li>';
+                total.innerText = '';
+                return;
+            }
+
+            checkboxes.forEach(chk => {
+                list.innerHTML += `<li>✓ ${chk.value}</li>`;
+            });
+
+            total.innerText = `Total Duration: ${duration}`;
+        }
+
+        function downloadItinerary() {
+            const name = document.getElementById('planner-name').value || 'Traveler';
+            const duration = document.getElementById('planner-days').value;
+            const checkboxes = document.querySelectorAll('.checkbox-group input:checked');
+
+            if (checkboxes.length === 0) {
+                alert('Please select at least one destination.');
+                return;
+            }
+
+            let places = [];
+            checkboxes.forEach(c => places.push(c.value));
+
+            const content = `
+EXPLORE GHANA - ITINERARY FRAMEWORK
+-----------------------------------
+Traveler: ${name}
+Duration: ${duration}
+
+SELECTED DESTINATIONS:
+${places.map(p => `- ${p}`).join('\n')}
+
+Framework Notes:
+- Day 1: Arrival & Settlements
+- Intermediate Days: ${places.map(p => p).join(', ')} covered optimally.
+- Final Day: Departure & Souvenirs
+            
+Generated on: ${new Date().toLocaleDateString()}
+www.exploreghana.com
+            `;
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Ghana_Trip_Plan.txt';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // --- THEME & COOKIES ---
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+
+            document.querySelector('.theme-switch').innerText = next === 'dark' ? '☀' : '☾';
+
+            // Save to localStorage (Simulating cookie permanence)
+            localStorage.setItem('theme', next);
+        }
+
+        function loadTheme() {
+            const saved = localStorage.getItem('theme');
+            if (saved) {
+                document.documentElement.setAttribute('data-theme', saved);
+                document.querySelector('.theme-switch').innerText = saved === 'dark' ? '☀' : '☾';
+            }
+        }
+
+        function checkCookies() {
+            const accepted = localStorage.getItem('cookiesAccepted');
+            if (!accepted) {
+                setTimeout(() => {
+                    document.getElementById('cookie-banner').style.display = 'block';
+                }, 1000);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+
+        // START
+        init();
+
+    </script>
+</body>
+
+</html>
